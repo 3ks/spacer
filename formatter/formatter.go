@@ -12,15 +12,16 @@ import (
 )
 
 func Start(pathname string) {
-	fmt.Println("start Spacer...")
+	fmt.Println("start formatter...")
 	now := time.Now()
-	files := scanner.ScanAllFile(pathname, ".md")
+	files := scanner.ScanAllFile(pathname, []string{".md"})
 	wg := sync.WaitGroup{}
 	for _, v := range files {
+		wg.Add(1)
 		go format(v, &wg)
 	}
 	wg.Wait()
-	cost := time.Now().Sub(now).Microseconds()
+	cost := time.Now().Sub(now).Milliseconds()
 	fmt.Printf("done! affect %v files, cost %v ms\n", len(files), cost)
 }
 

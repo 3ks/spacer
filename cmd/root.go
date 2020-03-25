@@ -3,7 +3,7 @@ package cmd
 import (
 	"fmt"
 	"os"
-	"spacer/formatter"
+	"spacer/mirror"
 
 	"github.com/spf13/cobra"
 )
@@ -23,10 +23,12 @@ var rootCmd = &cobra.Command{
 	Long:  `spacer 用于为你格式化 markdown 文件，spacer 非常灵活，每一条格式化规则都是可插拔的，并且您可以根据自己的情况，轻松对其进行扩展。`,
 	Run: func(cmd *cobra.Command, args []string) {
 		//_ = cmd.Usage()
-		formatter.Start(path)
+		//formatter.Start(path)
+		mirror.Start(path, "./zh/")
 	},
 	// todo 子命令，规则，查看最终规则列表，全部规则列表，规则说明
 	// todo 子命令，处理生成锚点
+	// todo 子命令，同步图片
 }
 
 func Execute() {
