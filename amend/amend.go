@@ -5,6 +5,9 @@
 package amend
 
 type Amend interface {
-	AmendText(source string) (new string, stop bool)
+	// AmendText 的三个返回值分别代表：处理后的内容，需要处理多行内容，阻止后续其它的规则的处理。
+	// 其中 goon 一般用于需要处理多行的情况，例如跨行的链接、表格等。
+	// stop 表示阻止后续其它的规则的处理，并立即返回本行内容。
+	AmendText(source string) (new string, goon, stop bool)
 	RuleName() string
 }

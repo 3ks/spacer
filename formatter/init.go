@@ -1,8 +1,12 @@
-package amend
+package formatter
 
-import "fmt"
+import (
+	"fmt"
+	"spacer/amend"
+	"spacer/rule"
+)
 
-var amends map[string]Amend
+var amends map[string]amend.Amend
 var enableAmends []string
 var disableAmends map[string]bool
 
@@ -18,12 +22,16 @@ func init() {
 }
 
 func Handling(source string) string {
-	stop := false
+	goon, stop := false, false
 	for _, ruleName := range enableAmends {
+		// todo 捋一捋先后顺序
 		if _, ok := disableAmends[ruleName]; ok {
 			continue
 		}
-		source, stop = amends[ruleName].AmendText(source)
+		source, goon, stop = amends[ruleName].AmendText(source)
+		if goon {
+			// todo 从 Handing 的调用方获取两行的内容，可能需要重新设计以下
+		}
 		if stop {
 			break
 		}
@@ -32,8 +40,8 @@ func Handling(source string) string {
 }
 
 func loadAllRule() {
-	amends = make(map[string]Amend)
-	amends[spacesBetweenChineseAndEnglish{}.RuleName()] = spacesBetweenChineseAndEnglish{}
+	amends = make(map[string]amend.Amend)
+	amends[rule.SpacesBetweenChineseAndEnglish{}.RuleName()] = rule.SpacesBetweenChineseAndEnglish{}
 	// todo 中英文之间的空格
 	// todo 文字和半角全角标点符号
 	// todo 全角字母数字符号转为半角

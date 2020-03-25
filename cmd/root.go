@@ -26,7 +26,7 @@ var rootCmd = &cobra.Command{
 		formatter.Start(path)
 	},
 	// todo 子命令，规则，查看最终规则列表，全部规则列表，规则说明
-	// todo 子命令
+	// todo 子命令，处理生成锚点
 }
 
 func Execute() {

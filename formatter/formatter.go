@@ -6,7 +6,6 @@ import (
 	"fmt"
 	"io/ioutil"
 	"os"
-	"spacer/amend"
 	"spacer/scanner"
 	"sync"
 	"time"
@@ -42,7 +41,7 @@ func format(filename string, wg *sync.WaitGroup) {
 	new := bytes.Buffer{}
 	sc := bufio.NewScanner(f)
 	for sc.Scan() {
-		new.WriteString(amend.Handling(sc.Text()))
+		new.WriteString(Handling(sc.Text()))
 	}
 	err = ioutil.WriteFile(filename, new.Bytes(), 0644)
 	if err != nil {
